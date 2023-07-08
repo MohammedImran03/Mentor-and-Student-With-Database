@@ -1,5 +1,8 @@
 import { client } from "../index.js";
 import { ObjectId } from "mongodb";
+import {getmentorbyID} from "./Mentor.js";
+
+
 //to get all Students data
 export async function getallstudents() {
   return await client
@@ -39,19 +42,21 @@ export async function addnewstudent(newstudentdata) {
 export async function assignmentor(_id, menterid) {
   var oid = new ObjectId(_id);
   var mentoroid = new ObjectId(menterid);
+  var getmentordetails =await getmentorbyID(menterid);
   var studentdatachange = await client
     .db("Mentor-student-assign")
     .collection("student")
     .updateOne(
       { _id: oid },
-      { $set: { menterid: mentoroid, mentorassign: true } }
+      { $set: { mentorassign: true , menterid:getmentordetails }  }
     );
+    var getstudentdetails=await getstudentsbyID(_id);
   var mentordatachange = await client
     .db("Mentor-student-assign")
     .collection("mentor")
     .updateMany(
       { _id: mentoroid },
-      { $set: { studentassigned: true }, $push: { studentsid: oid } }
+      { $set: { studentassigned: true }, $push: { studentsid: getstudentdetails } }
     );
   return studentdatachange, mentordatachange;
 }

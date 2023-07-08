@@ -1,5 +1,7 @@
 import { client } from "../index.js";
 import { ObjectId } from "bson";
+import {getstudentsbyID} from "./Student.js";
+
 
 //to get all Mentors data
 export async function getallmentors() {
@@ -48,6 +50,7 @@ export async function addnewmentor(newmentordata) {
 export async function assignstudent(_id, studentsid) {
   var oid = new ObjectId(_id);
   var studentoid = new ObjectId(studentsid);
+  var studentdetails=await getstudentsbyID(studentsid); 
   var studentdatachange = await client
   .db("Mentor-student-assign")
   .collection("student")
@@ -58,7 +61,7 @@ export async function assignstudent(_id, studentsid) {
   var mentordatachange = await client
   .db("Mentor-student-assign")
   .collection("mentor")
-  .updateMany({ _id: oid }, { $set: { studentassigned: true } , $push:{studentsid:studentsid}});
+  .updateMany({ _id: oid }, { $set: { studentassigned: true } , $push:{studentsid:studentdetails}});
   return (studentdatachange,mentordatachange);
 }
 
