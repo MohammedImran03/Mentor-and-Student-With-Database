@@ -50,11 +50,11 @@ router.get("/:id", async function (req, res) {
 });
 
 //delete Student with id
-router.delete("/delete/:id", async function (req, res) {
-  const { id } = req.params;
-  console.log(id);
-  const result = await Deletestudentid(id);
-  res.send(result);
+router.delete("/delete/:_id", async function (req, res) {
+  const { _id } = req.params;
+  console.log(_id);
+  const response = await Deletestudentid(_id);
+  res.send(response);
 });
 
 //Create New Student

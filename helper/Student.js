@@ -24,10 +24,11 @@ export async function getstudentsbyID(id) {
 
 //Delete Student details With Id
 export async function Deletestudentid(id) {
+  // var oid = new ObjectId(id);
   return await client
     .db("Mentor-student-assign")
     .collection("student")
-    .deleteOne({ _id: new ObjectId(id) });
+    .deleteOne({ _id: new ObjectId(id)});
 }
 
 //Add New Student to Data

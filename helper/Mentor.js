@@ -35,7 +35,7 @@ export async function Deletementorid(id) {
   return await client
     .db("Mentor-student-assign")
     .collection("mentor")
-    .deleteOne({ _id: new ObjectId(id) });
+    .deleteOne({ _id: new ObjectId(id)});
 }
 
 //Add New Mentor 
