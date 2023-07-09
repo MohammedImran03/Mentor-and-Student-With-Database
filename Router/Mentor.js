@@ -43,7 +43,7 @@ router.get("/mentors_assigned_to_students", async function (req, res) {
 //delete mentor with id
 router.delete("/delete/:_id", async function (req, res) {
   const { _id } = req.params;
-  console.log(id);
+  console.log(_id );
   const result = await Deletementorid(_id);
   res.send(result);
 });
